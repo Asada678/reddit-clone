@@ -1,6 +1,6 @@
 "use client";
 import { ExtendedPost } from "@/types/db";
-import { useRef, type FC } from "react";
+import { useRef, type FC, useEffect } from "react";
 import { useIntersection } from "@mantine/hooks";
 import { useInfiniteQuery } from "@tanstack/react-query";
 import { INFINITE_SCROLL_PAGINATION_RESULTS } from "@/config";
@@ -26,7 +26,7 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
     ["infinite-query"],
     async ({ pageParam = 1 }) => {
       const query =
-        `/api/posts?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}` +
+        `/api/post?limit=${INFINITE_SCROLL_PAGINATION_RESULTS}&page=${pageParam}` +
         (!!subredditName ? `&subredditName=${subredditName}` : "");
 
       const { data } = await axios.get(query);
@@ -39,6 +39,14 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
       initialData: { pages: [initialPosts], pageParams: [1] },
     }
   );
+
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
+    }
+
+    return () => {};
+  }, [entry, fetchNextPage]);
 
   const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
 

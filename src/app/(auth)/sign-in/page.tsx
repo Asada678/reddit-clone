@@ -5,7 +5,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { type FC } from "react";
 
-const page: FC = () => {
+const Page: FC = () => {
   return (
     <div className="absolute inset-0">
       <div className="h-full max-w-2xl mx-auto flex flex-col items-center justify-center">
@@ -26,4 +26,4 @@ const page: FC = () => {
   );
 };
 
-export default page;
+export default Page;

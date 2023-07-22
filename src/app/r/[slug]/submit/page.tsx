@@ -9,7 +9,7 @@ interface PageProps {
   };
 }
 
-const page = async ({ params }: PageProps) => {
+const Page = async ({ params }: PageProps) => {
   const subreddit = await db.subreddit.findFirst({
     where: {
       name: params.slug,
@@ -42,4 +42,4 @@ const page = async ({ params }: PageProps) => {
   );
 };
 
-export default page;
+export default Page;

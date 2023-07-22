@@ -7,7 +7,7 @@ import UserNameForm from "@/components/UserNameForm";
 import { authOptions, getAuthSession } from "@/lib/auth";
 import { redirect } from "next/navigation";
 
-const page = async ({}) => {
+const Page = async ({}) => {
   const session = await getAuthSession();
 
   if (!session?.user) {
@@ -32,4 +32,4 @@ const page = async ({}) => {
   );
 };
 
-export default page;
+export default Page;
